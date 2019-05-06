@@ -7,4 +7,7 @@ const App = () => (
   </div>
 );
 
+// TO DO 
+// ADD A LEADERBOARD PAGE ACCESSIBLE BY EVERYONE - NOT JUST SIGNED IN USERS
+
 export default App;
