@@ -2,6 +2,8 @@ import React from 'react';
 
 import { withAuthorization } from '../Session';
 
+// THIS PAGE IS ACTUALLY DEAD AT THE MOMENT - DECIDED TO REPURPOSE LANDING AS LEADERBOARD
+
 const LeaderboardPage = () => (
   <div>
     <h1>Leaderboard</h1>

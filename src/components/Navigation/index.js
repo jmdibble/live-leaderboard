@@ -17,11 +17,11 @@ const NavigationAuth = () => (
 
   <div>
 
-    <Link to={ROUTES.LANDING}> Landing |</Link>
+    <Link to={ROUTES.LANDING}> Leaderboard |</Link>
 
     <Link to={ROUTES.HOME}> Home |</Link>
 
-    <Link to={ROUTES.LEADERBOARD}> Leaderboard |</Link>
+    {/* <Link to={ROUTES.LEADERBOARD}> Leaderboard |</Link> */}
 
     <Link to={ROUTES.ACCOUNT}> Account |</Link>
 
