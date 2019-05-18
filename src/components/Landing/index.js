@@ -7,6 +7,8 @@ const INITIAL_STATE = {
   points: '',
 }
 
+// ADD POINTS UNDER UID
+
 class AddPoints extends Component {
   constructor(props) {
     super(props)
@@ -26,18 +28,21 @@ class AddPoints extends Component {
     // })
 
     await this.props.firebase.points(userId).transaction((currentPoints) => {
-      if(currentPoints == null)
+      if (currentPoints == null)
         currentPoints = 0;
-
       return parseInt(points) + currentPoints
-    }) 
-    
+    })
+
     event.preventDefault();
   }
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  // EXTRACT LIST OF USERNAMES AND POINTS
+
+
 
   render() {
     const { points } = this.state
@@ -49,6 +54,11 @@ class AddPoints extends Component {
           <input value={points} type="number" name="points" onChange={this.onChange} placeholder="Points" />
           <button type="submit">Submit</button>
         </form>
+
+        <div>
+          <p>put points and usernames here</p>
+        </div>
+
       </div>
     )
   }
