@@ -48,14 +48,16 @@ class AddPoints extends Component {
     const { points } = this.state
     return (
       <div>
-        <h1>Host a Run</h1>
+
+        <h1>Leaderboard</h1>
         <form onSubmit={this.onSubmit}>
           {/* <input value={name} type="text" name="name" onChange={this.onChange} placeholder="Name" /> */}
-          <input value={points} type="number" name="points" onChange={this.onChange} placeholder="Points" />
-          <button type="submit">Submit</button>
+          <input value={points} type="number" name="points" onChange={this.onChange} placeholder="Add Points" />
+          <button type="submit">Add</button>
         </form>
 
         <div>
+
           <p>put points and usernames here</p>
         </div>
 
