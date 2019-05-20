@@ -22,6 +22,7 @@ class AddPoints extends Component {
     var userId = await this.props.firebase.auth.currentUser.uid
     console.log(userId)
 
+    // THIS CODE IS JUST AS VIABLE, BUT USED TRANSACTIONS INSTEAD
     // await this.props.firebase.user(authUser.user.uid)
     // .update({
     // points: points,
