@@ -5,3 +5,6 @@
 This is going to be a leaderboard app where users can submit scores based on what they do, and all users can view the live leaderboard. 
 
 The leaderboard will update in realtime and potentially give awards, badges etc. 
+
+TO DO
+Read data from Firebase and render it in points order
