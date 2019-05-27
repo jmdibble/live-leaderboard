@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 import { withAuthorization } from '../Session';
-import { userInfo } from 'os';
+
 
 const INITIAL_STATE = {
   points: '',
+  loading: false,
+  users: [],
 }
 
 // ADD POINTS UNDER UID
@@ -16,11 +18,12 @@ class AddPoints extends Component {
   }
 
   onSubmit = async event => {
+
+    event.preventDefault();
+
     const { points } = this.state;
-    // console.log(this.state)
 
     var userId = await this.props.firebase.auth.currentUser.uid
-    console.log(userId)
 
     // THIS CODE IS JUST AS VIABLE, BUT USED TRANSACTIONS INSTEAD
     // await this.props.firebase.user(authUser.user.uid)
@@ -33,40 +36,63 @@ class AddPoints extends Component {
         currentPoints = 0;
       return parseInt(points) + currentPoints
     })
-
-    event.preventDefault();
   }
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
 
-  // EXTRACT LIST OF USERNAMES AND POINTS
+    this.props.firebase.users().on('value', snapshot => {
+      console.log(snapshot.val())
+      const usersObject = snapshot.val()
+      const usersList = Object.keys(usersObject).map(key => ({
+        ...usersObject[key],
+        uid: key,
+      }));
 
+      this.setState({
+        users: usersList,
+      });
+      console.log(usersList)
+      })
+    };
 
-
-  render() {
-    const { points } = this.state
-    return (
-      <div>
-
-        <h1>Leaderboard</h1>
-        <form onSubmit={this.onSubmit}>
-          {/* <input value={name} type="text" name="name" onChange={this.onChange} placeholder="Name" /> */}
-          <input value={points} type="number" name="points" onChange={this.onChange} placeholder="Add Points" />
-          <button type="submit">Add</button>
-        </form>
-
+    render() {
+      const { points, users } = this.state
+      return (
         <div>
 
-          <p>put points and usernames here</p>
+          <h1>Leaderboard</h1>
+          <form onSubmit={this.onSubmit}>
+            {/* <input value={name} type="text" name="name" onChange={this.onChange} placeholder="Name" /> */}
+            <input value={points} type="number" name="points" onChange={this.onChange} placeholder="Add Points" />
+            <button type="submit">Add</button>
+          </form>
+
+          <div>
+            <p>Render list of users and points here</p>
+            <UserList users={users} />
+          </div>
+
         </div>
-
-      </div>
-    )
+      )
+    }
   }
-}
 
-const condition = authUser => !!authUser;
+  const UserList = ({ users }) => (
+    <ul>
+      {users.map(user => (
+        <li key={user.uid}>
+          <span>
+            <strong>Username:</strong> {user.username}
+          </span>
+          <span>
+            <strong>Points:</strong> {user.points}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 
-export default withAuthorization(condition)(AddPoints);
+  const condition = authUser => !!authUser;
+
+  export default withAuthorization(condition)(AddPoints);
