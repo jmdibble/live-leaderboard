@@ -17,6 +17,22 @@ class AddPoints extends Component {
     this.state = { ...INITIAL_STATE }
   }
 
+  componentDidMount() {
+  this.props.firebase.users().on('value', snapshot => {
+    console.log(snapshot.val())
+    const usersObject = snapshot.val()
+    const usersList = Object.keys(usersObject).map(key => ({
+      ...usersObject[key],
+      uid: key,
+    }));
+
+    this.setState({
+      users: usersList,
+    });
+    console.log(usersList)
+    })
+  }
+
   onSubmit = async event => {
 
     event.preventDefault();
@@ -39,21 +55,7 @@ class AddPoints extends Component {
   }
 
   onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-
-    this.props.firebase.users().on('value', snapshot => {
-      console.log(snapshot.val())
-      const usersObject = snapshot.val()
-      const usersList = Object.keys(usersObject).map(key => ({
-        ...usersObject[key],
-        uid: key,
-      }));
-
-      this.setState({
-        users: usersList,
-      });
-      console.log(usersList)
-      })
+    this.setState({ [event.target.name]: event.target.value });   
     };
 
     render() {
