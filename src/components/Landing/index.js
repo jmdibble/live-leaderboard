@@ -24,6 +24,11 @@ class AddPoints extends Component {
         ...usersObject[key],
         uid: key,
       }));
+      console.log(usersList)
+
+      usersList.sort(function (a, b) {
+        return b.points - a.points;
+      });
 
       this.setState({
         users: usersList,
